@@ -30,3 +30,19 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+(function() {
+'use strict';
+
+var cmds = document.getElementsByClassName('del');
+var i;
+
+for(i = 0; i < cmds.length; i++){
+    cmds[i].addEventListener('click', function(e) {
+    e.preventDefault();
+    if (confirm('退会すると全データは削除されます。よろしいですか？')) {
+        document.getElementById(`form-${this.dataset.id}`).submit();
+    }
+    })
+}
+})();
