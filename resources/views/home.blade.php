@@ -11,7 +11,7 @@
                 <form method="post" action="{{ url('/posts') }}">
                     @csrf
 
-                    <div class="form-group row">
+                    <div class="form-group row justify-content-center">
                         <!-- <label for="body" class="col-md-4 col-form-label text-md-right">投稿する</label> -->
 
                         <!-- <div class="col-md-6"> -->
@@ -34,6 +34,30 @@
                         </div>
                     </div>
                 </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">投稿一覧</div>
+                    <div class="card-body">
+                        <ul>
+                            @foreach ($posts as $post)
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <a href="{{ url('/users', $post->user) }}">{{ $post->user->name }}</a>
+                                            </div>
+                                            <a class="col-md-9" href="{{ url('/posts', $post) }}">{!! nl2br(e($post->body)) !!}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

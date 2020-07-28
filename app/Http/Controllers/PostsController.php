@@ -13,9 +13,13 @@ class PostsController extends Controller
         ]);
         $post = new Post();
         $post->body = $request->body;
-        $post->user_id = Auth::id();
-        // Auth::user()->posts()->save($post);
-        $post->save();
+        Auth::user()->posts()->save($post);
+        // $post->user_id = Auth::id();
+        // $post->save();
         return redirect()->back();
+    }
+
+    public function show(Post $post) {
+        return view('posts.show')->with('post', $post);
     }
 }
