@@ -51,7 +51,29 @@
                                             <div class="col-md-3">
                                                 <a href="{{ url('/users', $post->user) }}">{{ $post->user->name }}</a>
                                             </div>
-                                            <a class="col-md-9" href="{{ url('/posts', $post) }}">{!! nl2br(e($post->body)) !!}</a>
+                                            <a class="col-md-9" href="{{ url('/posts', $post) }}">
+                                                {!! nl2br(e($post->body)) !!}
+                                            </a>
+                                            <div class="col-md-12 text-right">
+                                                @if ($post->likes->where('user_id', Auth::id())->first())
+                                                    <a href="#" class="like" data-id="{{ $post->id }}">
+                                                        いいね済み
+                                                        <span>{{ $post->likes->count() }}</span>
+                                                    </a>
+                                                    <form method="post" action="{{ action('LikesController@destroy', $post) }}" id="form-{{ $post->id }}">
+                                                        @csrf
+                                                        {{ method_field('delete') }}
+                                                    </form>
+                                                @else
+                                                    <a href="#" class="like" data-id="{{ $post->id }}">
+                                                        いいね
+                                                        <span>{{ $post->likes->count() }}</span>
+                                                    </a>
+                                                    <form method="post" action="{{ action('LikesController@store', $post) }}" id="form-{{ $post->id }}">
+                                                        @csrf
+                                                    </form>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

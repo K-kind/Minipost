@@ -34,15 +34,29 @@ const app = new Vue({
 (function() {
 'use strict';
 
-var cmds = document.getElementsByClassName('del');
-var i;
+let del = document.getElementsByClassName('del');
+let i;
 
-for(i = 0; i < cmds.length; i++){
-    cmds[i].addEventListener('click', function(e) {
-    e.preventDefault();
-    if (confirm('退会すると全データは削除されます。よろしいですか？')) {
+for(i = 0; i < del.length; i++){
+    del[i].addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm('退会すると全データは削除されます。よろしいですか？')) {
+            document.getElementById(`form-${this.dataset.id}`).submit();
+        }
+    })
+}
+})();
+
+(function() {
+'use strict';
+
+let like = document.getElementsByClassName('like');
+let i;
+
+for(i = 0; i < like.length; i++){
+    like[i].addEventListener('click', function(e) {
+        e.preventDefault();
         document.getElementById(`form-${this.dataset.id}`).submit();
-    }
     })
 }
 })();
