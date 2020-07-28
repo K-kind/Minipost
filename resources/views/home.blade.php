@@ -12,15 +12,13 @@
                     @csrf
 
                     <div class="form-group row">
-                        <!-- <label for="introduction" class="col-md-4 col-form-label text-md-right">投稿する</label> -->
+                        <!-- <label for="body" class="col-md-4 col-form-label text-md-right">投稿する</label> -->
 
                         <!-- <div class="col-md-6"> -->
                         <div class="col-md-8">
-                            <textarea id="" class="form-control @error('introduction') is-invalid @enderror" name="introduction" placeholder="投稿内容">
-                                {{ old('introduction') }}
-                            </textarea>
+                            <textarea id="" class="form-control @error('body') is-invalid @enderror" name="body" placeholder="投稿内容">{{ old('body') }}</textarea>
 
-                            @error('introduction')
+                            @error('body')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

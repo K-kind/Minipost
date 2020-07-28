@@ -67,9 +67,7 @@
               <label for="introduction" class="col-md-4 col-form-label text-md-right">自己紹介文</label>
 
               <div class="col-md-6">
-                <textarea id="" class="form-control @error('introduction') is-invalid @enderror" name="introduction">
-                  {{ old('introduction', $user->introduction) }}
-                </textarea>
+                <textarea id="" class="form-control @error('introduction') is-invalid @enderror" name="introduction">{{ old('introduction', $user->introduction) }}</textarea>
 
                 @error('introduction')
                   <span class="invalid-feedback" role="alert">
