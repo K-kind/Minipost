@@ -14,8 +14,6 @@ class PostsController extends Controller
         $post = new Post();
         $post->body = $request->body;
         Auth::user()->posts()->save($post);
-        // $post->user_id = Auth::id();
-        // $post->save();
         return redirect()->back();
     }
 
@@ -36,4 +34,8 @@ class PostsController extends Controller
         return redirect(url('/posts', $post));
     }
 
+    public function destroy(Post $post) {
+        $post->delete();
+        return redirect('/home');
+    }
 }
