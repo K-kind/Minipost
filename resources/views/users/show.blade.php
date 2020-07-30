@@ -28,6 +28,23 @@
         </div>
 
         <div>
+          @if ($is_followed && !$is_myself)
+            <form method="post" action="{{ action('FollowersController@destroy', $user) }}">
+              @csrf
+              {{ method_field('delete') }}
+              <input type="submit" value="フォローを外す">
+            </form>
+          @elseif (!$is_myself)
+            <form method="post" action="{{ action('FollowersController@store', $user) }}">
+              @csrf
+              <input type="submit" value="フォローする">
+            </form>
+          @endif
+          <a href="">{{ $following_count }}</a><span>フォロー中</span>
+          <a href="">{{ $follower_count }}</a><span>フォロワー</span>
+        </div>
+
+        <div>
           <a href="{{ action('UsersController@edit', $user) }}" class="btn btn-success">編集</a>
           <a href="#" class="del btn btn-danger" data-id="{{ $user->id }}">退会</a>
           <form method="post" action="{{ action('UsersController@destroy', $user) }}" id="form-{{ $user->id }}">
