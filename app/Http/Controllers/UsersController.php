@@ -5,12 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\Follower;
+use Auth;
 // use App\Http\Requests\PostRequest;
 
 class UsersController extends Controller
 {
-    public function show(User $user) { // implicit binding
-        return view('users.show')->with('user', $user);
+    public function show(User $user, Follower $follower) { // implicit binding
+        $is_myself = Auth::id() === $user->id;
+        $following_count = $follower->getFollowingCount($user->id);
+        $follower_count = $follower->getFollowerCount($user->id);
+        $is_followed = $user->isFollowed(Auth::id());
+        return view('users.show', [
+            'user'           => $user,
+            'is_myself'      => $is_myself,
+            // 'is_following'   => $is_following,
+            'is_followed'    => $is_followed,
+            // 'timelines'      => $timelines,
+            // 'tweet_count'    => $tweet_count,
+            'following_count'   => $following_count,
+            'follower_count' => $follower_count
+        ]);
     }
 
     public function edit(User $user) { // implicit binding

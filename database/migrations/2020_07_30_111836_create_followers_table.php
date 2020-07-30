@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLikesTable extends Migration
+class CreateFollowersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,26 @@ class CreateLikesTable extends Migration
      */
     public function up()
     {
-        Schema::create('likes', function (Blueprint $table) {
+        Schema::create('followers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('post_id');
             $table->timestamps();
+            $table->unsignedBigInteger('following_id')->comment('フォローしているユーザID');
+            $table->unsignedBigInteger('followed_id')->comment('フォローされているユーザID');
+
             $table->unique([
-                'user_id',
-                'post_id'
+                'following_id',
+                'followed_id'
             ]);
+
             $table
-                ->foreign('user_id')
+                ->foreign('following_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
             $table
-                ->foreign('post_id')
+                ->foreign('followed_id')
                 ->references('id')
-                ->on('posts')
+                ->on('users')
                 ->onDelete('cascade');
         });
     }
@@ -42,6 +44,6 @@ class CreateLikesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('likes');
+        Schema::dropIfExists('followers');
     }
 }
