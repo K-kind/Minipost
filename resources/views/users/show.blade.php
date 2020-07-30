@@ -21,19 +21,19 @@
 
         <div>
           @if ($is_followed && !$is_myself)
-            <form method="post" action="{{ action('FollowersController@destroy', $user) }}">
+            <form method="post" action="{{ action('FollowController@destroy', $user) }}">
               @csrf
               {{ method_field('delete') }}
               <input type="submit" value="フォローを外す">
             </form>
           @elseif (!$is_myself)
-            <form method="post" action="{{ action('FollowersController@store', $user) }}">
+            <form method="post" action="{{ action('FollowController@store', $user) }}">
               @csrf
               <input type="submit" value="フォローする">
             </form>
           @endif
-          <a href="">{{ $following_count }}</a><span>フォロー中</span>
-          <a href="">{{ $follower_count }}</a><span>フォロワー</span>
+          <a href="{{ action('FollowController@index', [$user, 'followings']) }}">{{ $following_count }}<span>フォロー中</span></a>
+          <a href="{{ action('FollowController@index', [$user, 'followers']) }}">{{ $follower_count }}<span>フォロワー</span></a>
         </div>
 
         <div>
