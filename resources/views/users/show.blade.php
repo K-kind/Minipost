@@ -9,16 +9,8 @@
         <div class="card-header">ユーザー情報</div>
 
         <div class="card-body">
+          <h2>{{ $user->name }}</h2>
           <div>
-            <h2>ユーザー名</h2>
-            <p>{{ $user->name }}</p>
-          </div>
-          <div>
-            <h2>メールアドレス</h2>
-            <p>{{ $user->email }}</p>
-          </div>
-          <div>
-            <h2>自己紹介</h2>
             @if ($user->introduction)
               <p>{!! nl2br(e($user->introduction)) !!}</p>
             @else
