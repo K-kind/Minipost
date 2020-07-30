@@ -4,10 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Follower;
 use Auth; // 追記
 
-class FollowersController extends Controller
+class FollowController extends Controller
 {
+    public function index(User $user, $type, Follower $follower)
+    {
+        if ($type === 'followings') {
+            $users = $user->follows;
+        } else {
+            $users = $user->followers;
+        }
+        $following_count = $follower->getFollowingCount($user->id);
+        $follower_count = $follower->getFollowerCount($user->id);
+        return view('follow.index',[
+            'user' => $user,
+            'users' => $users,
+            'type' => $type,
+            'following_count'   => $following_count,
+            'follower_count' => $follower_count,
+        ]);
+    }
+
     public function store(User $user)
     {
         $current_user = Auth::user();
