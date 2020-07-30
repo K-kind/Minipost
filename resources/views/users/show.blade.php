@@ -55,5 +55,8 @@
       </div>
     </div>
   </div>
+  <div class="row justify-content-center mt-4">
+    @include('posts._posts')
+  </div>
 </div>
 @endsection

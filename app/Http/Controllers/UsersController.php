@@ -16,6 +16,7 @@ class UsersController extends Controller
         $following_count = $follower->getFollowingCount($user->id);
         $follower_count = $follower->getFollowerCount($user->id);
         $is_followed = $user->isFollowed(Auth::id());
+        $posts = $user->posts->toQuery()->latest()->get();
         return view('users.show', [
             'user'           => $user,
             'is_myself'      => $is_myself,
@@ -24,7 +25,8 @@ class UsersController extends Controller
             // 'timelines'      => $timelines,
             // 'tweet_count'    => $tweet_count,
             'following_count'   => $following_count,
-            'follower_count' => $follower_count
+            'follower_count' => $follower_count,
+            'posts' => $posts
         ]);
     }
 
