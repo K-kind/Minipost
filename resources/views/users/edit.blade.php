@@ -24,6 +24,11 @@
                     <strong>{{ $message }}</strong>
                   </span>
                 @enderror
+                @error('photo')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
               </div>
             </div>
 
@@ -81,7 +86,7 @@
               <label for="photo" class="col-md-4 col-form-label text-md-right">プロフィール画像</label>
 
               <div class="col-md-6">
-                <input type="file" name="photo">
+                <input type="file" name="photo" class="is-invalid">
 
                 @error('photo')
                   <span class="invalid-feedback" role="alert">

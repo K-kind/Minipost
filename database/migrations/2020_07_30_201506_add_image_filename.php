@@ -14,7 +14,7 @@ class AddImageFilename extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('image_filename');
+            $table->string('image_filename')->nullable();
         });
     }
 
