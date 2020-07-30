@@ -9,7 +9,7 @@
         <div class="card-header">ユーザー情報編集</div>
 
         <div class="card-body">
-          <form method="post" action="{{ url('/users', $user->id) }}">
+          <form method="post" action="{{ url('/users', $user->id) }}" enctype="multipart/form-data">
             @csrf
             {{ method_field('patch') }}
 
@@ -70,6 +70,20 @@
                 <textarea id="" class="form-control @error('introduction') is-invalid @enderror" name="introduction">{{ old('introduction', $user->introduction) }}</textarea>
 
                 @error('introduction')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                @enderror
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="photo" class="col-md-4 col-form-label text-md-right">プロフィール画像</label>
+
+              <div class="col-md-6">
+                <input type="file" name="photo">
+
+                @error('photo')
                   <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                   </span>
