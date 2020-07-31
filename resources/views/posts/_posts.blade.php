@@ -18,6 +18,11 @@
                                     <a class="col-md-9" href="{{ url('/posts', $post) }}">
                                         {!! nl2br(e($post->body)) !!}
                                     </a>
+                                    @if ($post->image_filename)
+                                        <div class="col-md-12 text-center">
+                                            <img src="{{ url('storage/post_images/' . $post->image_filename) }}" width="240px">
+                                        </div>
+                                    @endif
                                     <div class="col-md-12 text-right">
                                         <span>{{ $post->created_at->format('Y/m/d H:i') }}</span>
                                         @if ($post->likes->where('user_id', Auth::id())->first())

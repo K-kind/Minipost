@@ -40,9 +40,12 @@ class UsersController extends Controller
         $user->email = $request->email;
         // // $user->password = $request->password;
         $user->introduction = $request->introduction;
-        // $request->photo->storeAs('public/profile_images', Auth::id() . '.jpg');
-        $filename = $request->photo->store('public/profile_images');
-        $user->image_filename = basename($filename);
+        if ($request->photo) {
+            $user->deleteImage();
+            // $request->photo->storeAs('public/profile_images', Auth::id() . '.jpg');
+            $filename = $request->photo->store('public/profile_images');
+            $user->image_filename = basename($filename);
+        }
         $user->save();
         return redirect(url('/users', $user));
     }
@@ -57,6 +60,7 @@ class UsersController extends Controller
     // }
 
     public function destroy(User $user) {
+        $user->deleteImage();
         $user->delete();
         return redirect('/login');
     }

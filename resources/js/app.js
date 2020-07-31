@@ -46,17 +46,3 @@ for(i = 0; i < del.length; i++){
     })
 }
 })();
-
-(function() {
-'use strict';
-
-let like = document.getElementsByClassName('like');
-let i;
-
-for(i = 0; i < like.length; i++){
-    like[i].addEventListener('click', function(e) {
-        e.preventDefault();
-        document.getElementById(`form-${this.dataset.id}`).submit();
-    })
-}
-})();
