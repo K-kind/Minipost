@@ -20,9 +20,8 @@ class CommentsController extends Controller
         return redirect()->back();
     }
 
-    // public function destroy(Post $post) {
-    //     $comment = $post->comments->where('user_id', Auth::id())->first();
-    //     $comment->delete();
-    //     return redirect()->back();
-    // }
+    public function destroy(Post $post, Comment $comment) {
+        $comment->delete();
+        return redirect()->back();
+    }
 }

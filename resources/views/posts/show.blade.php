@@ -76,6 +76,16 @@
                   <div class="col-md-9">
                     <p>{!! nl2br(e($comment->body)) !!}</p>
                     <p class="text-right">{{ $comment->created_at->format('Y/m/d H:i')}}</p>
+                    @if ($comment->user_id === Auth::id())
+                      <div class="text-right">
+                        <form method="post" action="{{ action('CommentsController@destroy', [$post, $comment]) }}">
+                          @csrf
+                          {{ method_field('delete') }}
+
+                          <input type="submit" value="削除" class="btn btn-danger">
+                        </form>
+                      </div>
+                    @endif
                   </div>
                 </div>
               </div>
