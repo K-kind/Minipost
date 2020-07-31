@@ -34,6 +34,8 @@ Route::patch('/posts/{post}', 'PostsController@update');
 Route::delete('/posts/{post}', 'PostsController@destroy');
 Route::post('/posts/{post}/likes', 'LikesController@store');
 Route::delete('/posts/{post}/likes', 'LikesController@destroy');
+Route::post('/posts/{post}/comments', 'CommentsController@store');
+Route::delete('/posts/{post}/comments/{comment}', 'CommentsController@destroy');
 Route::get('/users/{user}/{type}', 'FollowController@index');
 Route::post('/users/{user}/follow', 'FollowController@store');
 Route::delete('/users/{user}/follow', 'FollowController@destroy');
