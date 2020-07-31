@@ -9,6 +9,12 @@ use Auth;
 
 class LikesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')
+             ->only(['store', 'destroy']);
+    }
+
     public function store(Post $post) {
         $like = new Like();
         $like->user_id = Auth::id();

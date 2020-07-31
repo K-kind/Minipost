@@ -12,6 +12,12 @@ use Auth;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')
+             ->only(['edit', 'update', 'destroy']);
+    }
+
     public function show(User $user, Follower $follower) { // implicit binding
         $is_myself = Auth::id() === $user->id;
         $following_count = $follower->getFollowingCount($user->id);
@@ -32,10 +38,18 @@ class UsersController extends Controller
     }
 
     public function edit(User $user) { // implicit binding
+        if ($user->id !== Auth::id()) {
+            return redirect(url('/users', $user));
+        }
+
         return view('users.edit')->with('user', $user);
     }
 
     public function update(UserRequest $request, User $user) {
+        if ($user->id !== Auth::id()) {
+            return redirect(url('/users', $user));
+        }
+
         $user->name = $request->name;
         $user->email = $request->email;
         // // $user->password = $request->password;
@@ -60,6 +74,10 @@ class UsersController extends Controller
     // }
 
     public function destroy(User $user) {
+        if ($user->id !== Auth::id()) {
+            return redirect(url('/users', $user));
+        }
+
         $user->deleteImage();
         $user->delete();
         return redirect('/login');

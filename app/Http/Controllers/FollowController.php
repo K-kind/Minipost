@@ -9,6 +9,12 @@ use Auth; // 追記
 
 class FollowController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')
+             ->only(['store', 'destroy']);
+    }
+
     public function index(User $user, $type, Follower $follower)
     {
         if ($type === 'followings') {
