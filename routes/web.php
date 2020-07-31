@@ -13,6 +13,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::get('/', 'PostsController@index');
+// Route::get('/posts/{id}', 'PostsController@show');
+Route::get('/users/{user}', 'UsersController@show')->where('user', '[0-9]+');
+Route::get('/users/{user}/edit', 'UsersController@edit');
+Route::patch('/users/{user}', 'UsersController@update');
+Route::delete('/users/{user}', 'UsersController@destroy');
+Route::post('/posts', 'PostsController@store');
+Route::get('/posts/{post}', 'PostsController@show')->where('post', '[0-9]+');
+Route::get('/posts/{post}/edit', 'PostsController@edit');
+Route::patch('/posts/{post}', 'PostsController@update');
+Route::delete('/posts/{post}', 'PostsController@destroy');
+Route::post('/posts/{post}/likes', 'LikesController@store');
+Route::delete('/posts/{post}/likes', 'LikesController@destroy');
+Route::post('/posts/{post}/comments', 'CommentsController@store');
+Route::delete('/posts/{post}/comments/{comment}', 'CommentsController@destroy');
+Route::get('/users/{user}/{type}', 'FollowController@index');
+Route::post('/users/{user}/follow', 'FollowController@store');
+Route::delete('/users/{user}/follow', 'FollowController@destroy');
+// Route::get('/posts/create', 'PostsController@create');
+// Route::get('/posts/{post}/edit', 'PostsController@edit');
+// Route::patch('/posts/{post}', 'PostsController@update');
+// Route::post('/posts/{post}/comments', 'CommentsController@store');
+// Route::delete('/posts/{post}/comments/{comment}', 'CommentsController@destroy');
