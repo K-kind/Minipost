@@ -79,6 +79,11 @@
         </nav>
 
         <main class="py-4">
+            @if (session('flash_message'))
+                <div class="alert-primary text-center p-3 mx-5 mb-2 rounded">
+                    {{ session('flash_message') }}
+                </div>
+            @endif
             @yield('content')
         </main>
     </div>
