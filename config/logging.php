@@ -101,6 +101,7 @@ return [
         ],
     ],
 
-    'enable_request_log' => env('ENABLE_REQUEST_LOG', false),
+    'enable_request_log' => env('ENABLE_REQUEST_LOG', false), // 追記
+    'enable_sql_log' => env('ENABLE_SQL_LOG', false), // 追記
 
 ];
