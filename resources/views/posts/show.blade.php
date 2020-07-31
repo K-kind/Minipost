@@ -59,7 +59,7 @@
   <div class="row justify-content-center mt-4">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-header">コメント</div>
+        <div class="card-header">コメント {{ $post->comments->count() }}件</div>
         <div class="card-body">
           <div class="mb-3">
             @foreach ($comments as $comment)

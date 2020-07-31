@@ -24,25 +24,17 @@
                                         </div>
                                     @endif
                                     <div class="col-md-12 text-right">
-                                        <span>{{ $post->created_at->format('Y/m/d H:i') }}</span>
-                                        @if ($post->likes->where('user_id', Auth::id())->first())
-                                            <a href="#" class="like" data-id="{{ $post->id }}">
-                                                いいね済み
-                                                <span>{{ $post->likes->count() }}</span>
-                                            </a>
-                                            <form method="post" action="{{ action('LikesController@destroy', $post) }}" id="form-{{ $post->id }}">
-                                                @csrf
+                                        <p>{{ $post->created_at->format('Y/m/d H:i') }}</p>
+                                        <form method="post" action="{{ url('/posts/'.$post->id.'/likes') }}" class="d-inline-block mr-2">
+                                            @csrf
+                                            @if ($post->likes->where('user_id', Auth::id())->first())
                                                 {{ method_field('delete') }}
-                                            </form>
-                                        @else
-                                            <a href="#" class="like" data-id="{{ $post->id }}">
-                                                いいね
-                                                <span>{{ $post->likes->count() }}</span>
-                                            </a>
-                                            <form method="post" action="{{ action('LikesController@store', $post) }}" id="form-{{ $post->id }}">
-                                                @csrf
-                                            </form>
-                                        @endif
+                                                <input type="submit" value="いいね済み {{ $post->likes->count() }}">
+                                            @else
+                                                <input type="submit" value="いいね {{ $post->likes->count() }}">
+                                            @endif
+                                        </form>
+                                        <span>コメント {{ $post->comments->count() }}</span>
                                     </div>
                                 </div>
                             </div>
