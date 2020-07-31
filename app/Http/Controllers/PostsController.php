@@ -26,6 +26,7 @@ class PostsController extends Controller
             $post->image_filename = basename($filename);
         }
         Auth::user()->posts()->save($post);
+        session()->flash('flash_message', '投稿が完了しました');
         return redirect()->back();
     }
 
