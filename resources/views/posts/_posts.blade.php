@@ -1,8 +1,8 @@
 <div class="col-md-8">
     <div class="card">
         <div class="card-header">投稿一覧</div>
-            <div class="card-body">
-                <ul>
+            <div class="card-body px-5">
+                <ul class="px-0">
                     @foreach ($posts as $post)
                         <div class="card mb-2">
                             <div class="card-body">
@@ -42,6 +42,11 @@
                     @endforeach
                 </ul>
             </div>
+        </div>
+    </div>
+    <div class="col-md-8 mt-4">
+        <div class="d-flex justify-content-center">
+            {{ $posts->links() }}
         </div>
     </div>
 </div>

@@ -18,9 +18,9 @@ class FollowController extends Controller
     public function index(User $user, $type, Follower $follower)
     {
         if ($type === 'followings') {
-            $users = $user->follows;
+            $users = $user->follows()->paginate(3);
         } else {
-            $users = $user->followers;
+            $users = $user->followers()->paginate(3);
         }
         $following_count = $follower->getFollowingCount($user->id);
         $follower_count = $follower->getFollowerCount($user->id);
