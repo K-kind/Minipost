@@ -23,7 +23,7 @@ class UsersController extends Controller
         $following_count = $follower->getFollowingCount($user->id);
         $follower_count = $follower->getFollowerCount($user->id);
         $is_followed = $user->isFollowed(Auth::id());
-        $posts = $user->posts()->latest()->get();
+        $posts = $user->posts()->latest()->paginate(3);
         return view('users.show', [
             'user'           => $user,
             'is_myself'      => $is_myself,
