@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Follower;
+use App\Http\Requests\UserRequest;
 use Auth;
 // use App\Http\Requests\PostRequest;
 
@@ -34,17 +35,17 @@ class UsersController extends Controller
         return view('users.edit')->with('user', $user);
     }
 
-    public function update(Request $request, User $user) {
-    // public function update(PostRequest $request, Post $post) {
-        $this->validate($request, [
-            'name' => 'required|min:3|max:8',
-            'email' => 'required|email',
-            'introduction' => 'max:255'
-        ]);
+    public function update(UserRequest $request, User $user) {
         $user->name = $request->name;
         $user->email = $request->email;
         // // $user->password = $request->password;
         $user->introduction = $request->introduction;
+        if ($request->photo) {
+            $user->deleteImage();
+            // $request->photo->storeAs('public/profile_images', Auth::id() . '.jpg');
+            $filename = $request->photo->store('public/profile_images');
+            $user->image_filename = basename($filename);
+        }
         $user->save();
         return redirect(url('/users', $user));
     }
@@ -59,6 +60,7 @@ class UsersController extends Controller
     // }
 
     public function destroy(User $user) {
+        $user->deleteImage();
         $user->delete();
         return redirect('/login');
     }

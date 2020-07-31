@@ -77,4 +77,11 @@ class User extends Authenticatable
     {
         return $this->followers()->where('following_id', $user_id)->exists();
     }
+
+    public function deleteImage()
+    {
+        if ($this->image_filename) {
+            Storage::delete('public/profile_images/'.$this->image_filename);
+        }
+    }
 }

@@ -9,13 +9,20 @@
         <div class="card-header">ユーザー情報</div>
 
         <div class="card-body">
-          <h2>{{ $user->name }}</h2>
-          <div>
-            @if ($user->introduction)
-              <p>{!! nl2br(e($user->introduction)) !!}</p>
-            @else
-              <p>自己紹介文は未登録です。</p>
-            @endif
+          <div class="row">
+            <div class="col-md-3 text-center">
+              <img src="@if ($user->image_filename) {{ url('storage/profile_images/' . $user->image_filename) }} @else {{ url('/images/no_image.png') }} @endif" width="80px" height="80px">
+            </div>
+            <div class="col-md-9">
+              <h2>{{ $user->name }}</h2>
+              <div>
+                @if ($user->introduction)
+                  <p>{!! nl2br(e($user->introduction)) !!}</p>
+                @else
+                  <p>自己紹介文は未登録です。</p>
+                @endif
+              </div>
+            </div>
           </div>
         </div>
 

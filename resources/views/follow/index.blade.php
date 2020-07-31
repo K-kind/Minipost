@@ -41,7 +41,10 @@
                 <div class="card mb-2">
                   <div class="card-body">
                     <div class="row">
-                      <div class="col-md-3">
+                      <div class="col-md-3 text-center">
+                        <a href="{{ url('/users', $user) }}">
+                          <img src="@if ($user->image_filename) {{ url('storage/profile_images/' . $user->image_filename) }} @else {{ url('/images/no_image.png') }} @endif" width="42px" height="42px">
+                        </a>
                       </div>
                       <div class="col-md-9 ">
                         <div>
