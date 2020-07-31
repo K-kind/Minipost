@@ -24,7 +24,11 @@ class PostsController extends Controller
     }
 
     public function show(Post $post) {
-        return view('posts.show')->with('post', $post);
+        $comments = $post->comments;
+        return view('posts.show', [
+            'post' => $post,
+            'comments' => $comments
+        ]);
     }
 
     public function edit(Post $post) {

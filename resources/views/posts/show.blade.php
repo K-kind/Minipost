@@ -56,5 +56,68 @@
       </div>
     </div>
   </div>
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">コメント {{ $post->comments->count() }}件</div>
+        <div class="card-body">
+          <div class="mb-3">
+            @foreach ($comments as $comment)
+              <div class="card mb-2">
+                <div class="card-body row">
+                  <div class="col-md-3 text-center">
+                    <a href="{{ url('/users', $comment->user) }}">
+                      {{ $comment->user->name }}
+                      <div class="text-center mt-1">
+                          <img src="@if ($comment->user->image_filename) {{ url('storage/profile_images/' . $comment->user->image_filename) }} @else {{ url('/images/no_image.png') }} @endif" width="24px" height="24px">
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-md-9">
+                    <p>{!! nl2br(e($comment->body)) !!}</p>
+                    <p class="text-right">{{ $comment->created_at->format('Y/m/d H:i')}}</p>
+                    @if ($comment->user_id === Auth::id())
+                      <div class="text-right">
+                        <form method="post" action="{{ action('CommentsController@destroy', [$post, $comment]) }}">
+                          @csrf
+                          {{ method_field('delete') }}
+
+                          <input type="submit" value="削除" class="btn btn-danger">
+                        </form>
+                      </div>
+                    @endif
+                  </div>
+                </div>
+              </div>
+            @endforeach
+          </div>
+
+          <form method="post" action="{{ action('CommentsController@store', $post) }}">
+              @csrf
+
+              <div class="form-group row justify-content-center">
+                <div class="col-md-8">
+                  <div class="form-group row">
+                    <textarea id="" class="form-control @error('body') is-invalid @enderror" name="body" rows="3" placeholder="コメント内容">{{ old('body') }}</textarea>
+
+                    @error('body')
+                    <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                  </div>
+                </div>
+              </div>
+              <div class="form-group text-center">
+                <div class="">
+                  <button type="submit" class="btn btn-primary">
+                    コメントする
+                  </button>
+                </div>
+              </div>
+          </form>
+        </div>
+    </div>
+  </div>
 </div>
 @endsection
