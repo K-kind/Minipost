@@ -9,6 +9,11 @@ use Auth;
 
 class CommentsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function store(Post $post, Request $request) {
         $this->validate($request, [
             'body' => 'required|max:255'

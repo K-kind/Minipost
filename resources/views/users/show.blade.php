@@ -43,14 +43,16 @@
           <a href="{{ action('FollowController@index', [$user, 'followers']) }}">{{ $follower_count }}<span>フォロワー</span></a>
         </div>
 
-        <div>
-          <a href="{{ action('UsersController@edit', $user) }}" class="btn btn-success">編集</a>
-          <a href="#" class="del btn btn-danger" data-id="{{ $user->id }}">退会</a>
-          <form method="post" action="{{ action('UsersController@destroy', $user) }}" id="form-{{ $user->id }}">
-            @csrf
-            {{ method_field('delete') }}
-          </form>
-        </div>
+        @if ($user->id === Auth::id())
+          <div>
+            <a href="{{ action('UsersController@edit', $user) }}" class="btn btn-success">編集</a>
+            <a href="#" class="del btn btn-danger" data-id="{{ $user->id }}">退会</a>
+            <form method="post" action="{{ action('UsersController@destroy', $user) }}" id="form-{{ $user->id }}">
+              @csrf
+              {{ method_field('delete') }}
+            </form>
+          </div>
+        @endif
       </div>
     </div>
   </div>

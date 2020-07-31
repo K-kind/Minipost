@@ -45,14 +45,16 @@
           </div>
         </div>
 
-        <div>
-          <a href="{{ action('PostsController@edit', $post) }}" class="btn btn-success">編集</a>
-          <a href="#" class="del btn btn-danger" data-id="{{ $post->id }}">削除</a>
-          <form method="post" action="{{ action('PostsController@destroy', $post) }}" id="form-{{ $post->id }}">
-            @csrf
-            {{ method_field('delete') }}
-          </form>
-        </div>
+        @if ($post->user_id === Auth::id())
+          <div>
+            <a href="{{ action('PostsController@edit', $post) }}" class="btn btn-success">編集</a>
+            <a href="#" class="del btn btn-danger" data-id="{{ $post->id }}">削除</a>
+            <form method="post" action="{{ action('PostsController@destroy', $post) }}" id="form-{{ $post->id }}">
+              @csrf
+              {{ method_field('delete') }}
+            </form>
+          </div>
+        @endif
       </div>
     </div>
   </div>

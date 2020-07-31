@@ -71,14 +71,22 @@ class User extends Authenticatable
     }
 
     // フォローしているか
-    public function isFollowing(Int $user_id)
-    {
-        return $this->follows()->where('followed_id', $user_id)->exists();
-    }
+    // public function isFollowing(?Int $user_id)
+    // {
+    //     if (!$user_id) {
+    //         return false;
+    //     }
+
+    //     return $this->follows()->where('followed_id', $user_id)->exists();
+    // }
 
     // フォローされているか
-    public function isFollowed(Int $user_id)
+    public function isFollowed(?Int $user_id)
     {
+        if (!$user_id) {
+            return false;
+        }
+
         return $this->followers()->where('following_id', $user_id)->exists();
     }
 
