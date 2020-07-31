@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(3);
+        $posts = Post::with(['user', 'likes', 'comments'])->latest()->paginate(3);
         return view('home')->with('posts', $posts);
     }
 }
